@@ -74,8 +74,8 @@ macUtil.getMac(function(err, macAddress) {
                                 console.log('\ttemperature = %d C', temperature);
                                 console.log('\thumidity = %d %', humidity);
 
-                                temperatureVar = temperature + 'C';
-                                humidityVar = humidity + "%";
+                                temperatureVar = temperaturetoFixed(2) + 'C';
+                                humidityVar = humiditytoFixed(2) + "%";
 
                             });
                         });
@@ -85,8 +85,8 @@ macUtil.getMac(function(err, macAddress) {
 
                             sensorTag.readIrTemperature(function(objectTemperature,
                                 ambientTemperature) {
-                                objectTemperatureVar = parseFloat(objectTemperature.toFixed(1));
-                                objectAmbientTemperatureVar = parseFloat(ambientTemperature.toFixed(1));
+                                objectTemperatureVar = parseFloat(objectTemperature.toFixed(2));
+                                objectAmbientTemperatureVar = parseFloat(ambientTemperature.toFixed(2));
 
                                 console.log("objTemp:" + objectTemperatureVar);
                                 console.log("ambientTemp:" + objectAmbientTemperatureVar);
