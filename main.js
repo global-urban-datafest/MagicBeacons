@@ -13,6 +13,18 @@ var deviceType = "MagicBeacons-Edison";
 var B = 3975;
 var port = 1883;
 
+ function pad2(n) {  // always returns a string
+            return (n < 10 ? '0' : '') + n;
+        }
+
+function getTimeStamp(d){
+            return d.getFullYear() +
+               pad2(d.getMonth() + 1) + 
+               pad2(d.getDate()) +
+               pad2(d.getHours()) +
+               pad2(d.getMinutes()) +
+               pad2(d.getSeconds());
+}
 var macAddressVar ="";
 // Get currect edision board mac address
 macUtil.getMac(function(err, macAddress) {
@@ -74,8 +86,8 @@ macUtil.getMac(function(err, macAddress) {
                                 console.log('\ttemperature = %d C', temperature);
                                 console.log('\thumidity = %d %', humidity);
 
-                                temperatureVar = temperaturetoFixed(2) + 'C';
-                                humidityVar = humiditytoFixed(2) + "%";
+                                temperatureVar = temperature.toFixed(2) + 'C';
+                                humidityVar = humidity.toFixed(2) + "%";
 
                             });
                         });
@@ -100,7 +112,10 @@ macUtil.getMac(function(err, macAddress) {
                         //enableAccelerometer
                         //enableGyroscope
 
+                        var timestamp = new Date();
+                        timestamp = getTimeStamp(timestamp);
                         output = '{"d":{"macAddress" : ' + macAddressVar + " , ";
+                        output = output + '"timestamp" : ' + timestamp + " , ";
                         output = output + '"temp" : ' + temperatureVar + " , ";
                         output = output + '"humidity" : ' + humidityVar + " , ";
                         output = output + '"objectTemp" : ' + objectTemperatureVar + " , ";
