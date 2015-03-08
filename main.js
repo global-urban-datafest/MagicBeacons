@@ -60,6 +60,13 @@ macUtil.getMac(function(err, macAddress) {
             var objectAmbientTemperatureVar = "";
             var output = "";
 
+                        var accelerometerXVar = "";
+                        var accelerometerYVar = "";
+                        var accelerometerZVar = "";
+                        
+                        var magnetometerXVar = "";
+                        var magnetometerYVar = "";
+                        var magnetometerZVar = "";
 
 
 
@@ -110,23 +117,42 @@ macUtil.getMac(function(err, macAddress) {
 
                         //TODO:
                         //enableAccelerometer
+                        
+                        sensorTag.enableAccelerometer(function() {
+                         sensorTag.readAccelerometer(
+                            function(x, y, z){
+                                accelerometerXVar = x;
+                                accelerometerYVar = y;
+                                accelerometerZVar = z;
+                                console.log("accX: " + x);
+                                console.log("accY: " + y);
+                                console.log("accZ: " + z);
+                              
+                            });
+                        });
+                        
                         //enableGyroscope
+                        
+                        //enableMagnetometer
+                        sensorTag.enableMagnetometer(function() {
+                         sensorTag.readMagnetometer(
+                            function(x, y, z){
+                                magnetometerXVar = x;
+                                magnetometerYVar = y;
+                                magnetometerZVar = z;
+                                console.log("magX: " + x);
+                                console.log("magY: " + y);
+                                console.log("magZ: " + z);
+                                
+                            });
+                        });
+                        
+                        
 
                         var timestamp = new Date();
                         timestamp = getTimeStamp(timestamp);
-                        var d = {macAddress:macAddressVar, timestamp:timestamp , temp : temperatureVar, humidity:humidityVar, objectTemp: objectTemperatureVar, ambientTemp: objectAmbientTemperatureVar};
-                        /*
-                        output = '{"d":{"macAddress" : ' + macAddressVar + " , ";
-                        output = output + '"timestamp" : ' + timestamp + " , ";
-                        output = output + '"temp" : ' + temperatureVar + " , ";
-                        output = output + '"humidity" : ' + humidityVar + " , ";
-                        output = output + '"objectTemp" : ' + objectTemperatureVar + " , ";
-                        output = output + '"ambientTemp" : ' + objectAmbientTemperatureVar + "  ";
-
-                        output = output + '}}';
-
-                        console.log(output);
-                        */
+                        var d = {macAddress:macAddressVar, timestamp:timestamp , temp : temperatureVar, humidity:humidityVar, objectTemp: objectTemperatureVar, ambientTemp: objectAmbientTemperatureVar, magnetometerX:magnetometerXVar, magnetometerY:magnetometerYVar, magnetometerZ:magnetometerZVar, accelerometerX:accelerometerXVar, accelerometerY:accelerometerYVar,accelerometerZ:accelerometerZVar};
+                        
                         console.log(JSON.stringify(d));
                         message.d.temp = d;
                         client.publish(topic, JSON.stringify(message));
