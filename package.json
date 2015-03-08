@@ -1,0 +1,15 @@
+{
+  "name": "MagicBeacon",
+  "description": "FabLab Hackation March 2015",
+  "version": "0.0.0",
+  "main": "main.js",
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "dependencies": {
+    
+      "mqtt":"1.0.5",
+      "getmac":"1.0.6",
+      "properties":"1.2.1"
+  }
+}
