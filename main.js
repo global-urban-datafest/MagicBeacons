@@ -114,6 +114,8 @@ macUtil.getMac(function(err, macAddress) {
 
                         var timestamp = new Date();
                         timestamp = getTimeStamp(timestamp);
+                        var d = {macAddress:macAddressVar, timestamp:timestamp , temp : temperatureVar, humidity:humidityVar, objectTemp: objectTemperatureVar, ambientTemp: objectAmbientTemperatureVar};
+                        /*
                         output = '{"d":{"macAddress" : ' + macAddressVar + " , ";
                         output = output + '"timestamp" : ' + timestamp + " , ";
                         output = output + '"temp" : ' + temperatureVar + " , ";
@@ -124,8 +126,9 @@ macUtil.getMac(function(err, macAddress) {
                         output = output + '}}';
 
                         console.log(output);
-
-                        message.d.temp = output;
+                        */
+                        console.log(JSON.stringify(d));
+                        message.d.temp = d;
                         client.publish(topic, JSON.stringify(message));
                         console.log("Sensor Data pushed ");
 
